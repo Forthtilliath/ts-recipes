@@ -76,6 +76,11 @@ a, a:visited {
   box-shadow: 0px 1px 8px #f2f2f2;
 }
 
+h2 {
+  align-self: flex-start;
+  margin-bottom: 1rem;
+}
+
 .tags_container {
   margin-top: 20px;
   display: flex;
@@ -92,7 +97,7 @@ a, a:visited {
 .tags_container .tag.tag_appliance {
   background-color: #68d9a4;
 }
-.tags_container .tag.tag_ustensil {
+.tags_container .tag.tag_ustensile {
   background-color: #ed6454;
 }
 .tags_container .tag button {
@@ -110,11 +115,23 @@ a, a:visited {
   justify-content: flex-start;
   flex-direction: column;
   margin: 2rem;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.search_container .search_main_input {
+.search_container .search_input_wrapper {
+  width: 100%;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.search_container .search_input_wrapper .search_main_input {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
+  border: none;
+}
+.search_container .search_input_wrapper .search_main_input:focus {
+  background-color: #ff05;
 }
 .search_container .search_wrapper {
   display: flex;
@@ -138,9 +155,6 @@ a, a:visited {
 }
 .search_container .search_wrapper .search_content.search_ustensils {
   background-color: #ed6454;
-}
-.search_container .search_wrapper .search_content * {
-  background-color: inherit;
 }
 .search_container .search_wrapper .search_content.search_active {
   flex: 3;

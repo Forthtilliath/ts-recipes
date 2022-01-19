@@ -1,16 +1,16 @@
 import { sortAlphabetically, createLi } from './utils.js';
 import recipes from './data/recipes.js';
 
-const searchInputs = document.querySelectorAll('.search_header .search_input') as NodeListOf<HTMLElement>;
+// const searchInputs = document.querySelectorAll('.search_header .search_input') as NodeListOf<HTMLElement>;
 
-const listIngredients = document.querySelector('#list_ingredients') as HTMLElement;
-const listAppliances = document.querySelector('#list_appliances') as HTMLElement;
-const listUstensiles = document.querySelector('#list_ustensiles') as HTMLElement;
+const listIngredients = document.querySelector<HTMLElement>('#list_ingredients')!;
+const listAppliances = document.querySelector<HTMLElement>('#list_appliances')!;
+const listUstensiles = document.querySelector<HTMLElement>('#list_ustensiles')!;
 
-const tagsContainer = document.querySelector('.tags_container') as HTMLElement;
+const tagsContainer = document.querySelector<HTMLElement>('.tags_container')!;
 
-const buttons = document.querySelectorAll('.btn_search') as NodeListOf<HTMLElement>;
-const buttonsClose = document.querySelectorAll('.btn_close') as NodeListOf<HTMLElement>;
+const buttons = document.querySelectorAll<HTMLElement>('.btn_search');
+const buttonsClose = document.querySelectorAll<HTMLElement>('.btn_close');
 
 generateDOM();
 
@@ -27,16 +27,17 @@ function generateDOM() {
     let ingredientsSet = new Set<string>();
     let appliancesSet = new Set<string>();
     let ustensilesSet = new Set<string>();
-    
+
     for (const recipe of recipes) {
         recipe.ingredients.forEach((ing) => ingredientsSet.add(ing.name));
         appliancesSet.add(recipe.appliance);
         recipe.ustensils.forEach((ust) => ustensilesSet.add(ust));
     }
+
     const ingredientsArr = [...ingredientsSet].sort(sortAlphabetically);
     const appliancesArr = [...appliancesSet].sort(sortAlphabetically);
     const ustensilesArr = [...ustensilesSet].sort(sortAlphabetically);
-    
+
     ingredientsArr.forEach((ingredient) => createLi(listIngredients, ingredient, createTag));
     appliancesArr.forEach((appliance) => createLi(listAppliances, appliance, createTag));
     ustensilesArr.forEach((ustensile) => createLi(listUstensiles, ustensile, createTag));
@@ -78,23 +79,14 @@ function focusInput(button: HTMLElement) {
 function createTag(e: Event) {
     const el = e?.target as HTMLElement;
     const tag = document.createElement('div');
-    // const bg = window.getComputedStyle(el, null).getPropertyValue('background-color');
     const customClass = 'tag_' + el.parentElement?.getAttribute('id')?.slice(5, -1);
 
     tag.classList.add('tag', customClass);
-    // tag.style.setProperty('background-color', bg);
-
-    // tag.innerText = el.innerText;
-    // tag.appendChild(createBtnDeleteTag());
 
     // Label
     tag.innerHTML = `<span class="tagLabel">${el.innerText}</span>`;
     tag.appendChild(createBtnDeleteTag());
 
-    // tag.innerHTML = `
-    //     <span class="tagLabel">${el.innerText}</span>
-    //     <button class="btnRemoveTag">&#x2715</button>
-    // `;
     tagsContainer.appendChild(tag);
 
     handleClose();
@@ -107,7 +99,7 @@ function createTag(e: Event) {
 function createBtnDeleteTag() {
     const btn = document.createElement('button');
     btn.innerHTML = '&#x2715';
-    btn.addEventListener('click', removeTag);  
+    btn.addEventListener('click', removeTag);
     return btn;
 }
 
@@ -125,21 +117,35 @@ function removeTag(e: Event) {
  */
 function updateListes() {
     const tags = document.querySelectorAll<HTMLElement>('.tagLabel');
+    const listTags: ListTags = {
+        tag_ingredient: new Array<string>(),
+        tag_appliance: new Array<string>(),
+        tag_ustensile: new Array<string>(),
+    };
 
-    const el = recipes.map(recipe => {
-
+    tags.forEach((tag) => {
+        const type = tag.parentElement!.classList[1];
+        
+        if (type in listTags) {
+            listTags[type].push(tag.innerText);
+        }
     });
+    console.log(listTags);
     
-    tags.forEach(tag => {
-        console.log('tag', tag.innerText);
-        ingredients.forEach(ingredient => {
-            if (ingredient.innerText === tag.innerText) {
-                ingredient.style.removeProperty('display');
-            } else {
-                ingredient.style.setProperty('display', 'none');
-            }
-        })
-    })
+
+    const el = recipes.map((recipe) => {});
+
+    // tags.forEach(tag => {
+    //     const type = tag.parentElement!.classList[1];
+
+    //     ingredients.forEach(ingredient => {
+    //         if (ingredient.innerText === tag.innerText) {
+    //             ingredient.style.removeProperty('display');
+    //         } else {
+    //             ingredient.style.setProperty('display', 'none');
+    //         }
+    //     })
+    // });
 }
 
 function copyItem(item: HTMLElement) {

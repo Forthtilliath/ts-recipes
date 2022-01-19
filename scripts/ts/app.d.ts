@@ -13,3 +13,7 @@ type Recipe = {
     appliance: string;
     ustensils: string[];
 };
+
+type ListTags = {
+    [key: string]: string[];
+};

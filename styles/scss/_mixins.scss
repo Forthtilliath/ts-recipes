@@ -18,3 +18,8 @@
     position: sticky;
     top: $top;
 }
+
+@mixin borderRadius($size) {
+    border-radius: #{$size};
+    overflow: hidden;
+}

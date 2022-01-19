@@ -1,6 +1,5 @@
 import { sortAlphabetically, createLi } from './utils.js';
 import recipes from './data/recipes.js';
-const searchInputs = document.querySelectorAll('.search_header .search_input');
 const listIngredients = document.querySelector('#list_ingredients');
 const listAppliances = document.querySelector('#list_appliances');
 const listUstensiles = document.querySelector('#list_ustensiles');
@@ -64,19 +63,19 @@ function removeTag(e) {
 }
 function updateListes() {
     const tags = document.querySelectorAll('.tagLabel');
-    const el = recipes.map(recipe => {
+    const listTags = {
+        tag_ingredient: new Array(),
+        tag_appliance: new Array(),
+        tag_ustensile: new Array(),
+    };
+    tags.forEach((tag) => {
+        const type = tag.parentElement.classList[1];
+        if (type in listTags) {
+            listTags[type].push(tag.innerText);
+        }
     });
-    tags.forEach(tag => {
-        console.log('tag', tag.innerText);
-        ingredients.forEach(ingredient => {
-            if (ingredient.innerText === tag.innerText) {
-                ingredient.style.removeProperty('display');
-            }
-            else {
-                ingredient.style.setProperty('display', 'none');
-            }
-        });
-    });
+    console.log(listTags);
+    const el = recipes.map((recipe) => { });
 }
 function copyItem(item) {
     const a = item.cloneNode(true);

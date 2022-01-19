@@ -3,6 +3,11 @@
     box-shadow: 0px 1px 8px $white;
 }
 
+h2 {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+}
+
 .tags_container {
     margin-top: 20px;
     display: flex;
@@ -19,7 +24,7 @@
         &.tag_appliance {
             background-color: $c_appliances;
         }
-        &.tag_ustensil {
+        &.tag_ustensile {
             background-color: $c_ustensiles;
         }
 
@@ -39,10 +44,32 @@
     flex-direction: column;
     margin: 2rem;
 
-    .search_main_input {
+    border-radius: 5px;
+    // Pour avoir les border-radius sur les enfants
+    overflow: hidden;
+
+    // &, * {
+    //     border-radius: 5px;
+    // }
+
+    .search_input_wrapper {
         width: 100%;
-        padding: 10px;
-        font-size: 1rem;
+        background-color: $white;
+        // border-radius: 5px;
+        @include borderRadius(5px);
+
+        .search_main_input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            // border-radius: 5px;
+            border: none;
+
+            &:focus {
+                // background-color: #fffc;
+                background-color: #ff05;
+            }
+        }
     }
 
     .search_wrapper {
@@ -68,9 +95,9 @@
                 background-color: $c_ustensiles;
             }
 
-            & * {
-                background-color: inherit;
-            }
+            // & * {
+            //     background-color: inherit;
+            // }
 
             &.search_active {
                 flex: 3;
