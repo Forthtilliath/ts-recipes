@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        /* Visit https://aka.ms/tsconfig.json to read more about this file */
+        "target": "es2021",
+        "outDir": "./scripts/js",
+        "noEmitOnError": true,
+        "strict": true,
+        "declaration": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "pretty": true,
+        "removeComments": true,
+        "composite": false,
+        // "declarationDir": "./scripts/types"
+    },
+    "include": ["./scripts/ts/**/*", "./scripts/types/**/*"],
+    "exclude": ["node_modules", "scripts/js"]
+}

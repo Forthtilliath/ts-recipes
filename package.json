@@ -1,0 +1,19 @@
+{
+    "name": "project",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "",
+    "author": "Forth <33458877+Forthtilliath@users.noreply.github.com>",
+    "license": "MIT",
+    "scripts": {
+        "init": "yarn",
+        "build-sass": "sass --no-source-map --watch styles/scss/index.scss:styles/css/style.css",
+        "build-ts": "tsc --build tsconfig.json --watch --preserveWatchOutput",
+        "build": "concurrently -k -n \"Typescript,SASS\" -p \"[{name}]\" -c \"blue,green\" \"yarn run build-ts\" \"yarn run build-sass\""
+    },
+    "dependencies": {
+        "concurrently": "*",
+        "sass": "*",
+        "typescript": "*"
+    }
+}

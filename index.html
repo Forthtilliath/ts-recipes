@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>App</title>
+        <link rel="stylesheet" href="styles/css/style.css" />
+        <script src="scripts/js/index.js" type="module"></script>
+    </head>
+    <body>
+        <header class="header">
+            <h2 class="title">Les petits plats</h2>
+        </header>
+
+        <div class="container">
+            <div class="search_container">
+                <input type="text" class="search_main_input" placeholder="Rechercher un ingrédient, un appareil, un ustensile ou une recette" />
+
+                <div class="tags_container"></div>
+
+                <div class="search_wrapper">
+                    <div class="search_content search_ingredients search_active">
+                        <input type="text" class="search_input btn_search" placeholder="Ingredients"/>
+
+                        <div class="list_container">
+                            <header class="search_header">
+                                <input type="text" class="search_input" placeholder="Rechercher un ingrédient">
+                                <button class="btn_close">&#x2715</button>
+                            </header>
+                            <ul class="search_results" id="list_ingredients"></ul>
+                            <ul class="search_results" id="list_ingredients_filtered" style="display: none;"></ul>
+                        </div>
+                    </div>
+
+                    <div class="search_content search_appliances">
+                        <input type="text" class="search_input btn_search" placeholder="Appareils"/>
+
+                        <div class="list_container">
+                            <header class="search_header">
+                                <input type="text" class="search_input" placeholder="Rechercher un appareil">
+                                <button class="btn_close">&#x2715</button>
+                            </header>
+                            <ul class="search_results" id="list_appliances"></ul>
+                        </div>
+                    </div>
+
+                    <div class="search_content search_ustensils">
+                        <input type="text" class="search_input btn_search" placeholder="Ustensiles"/>
+
+                        <div class="list_container">
+                            <header class="search_header">
+                                <input type="text" class="search_input" placeholder="Rechercher un ustensile">
+                                <button class="btn_close">&#x2715</button>
+                            </header>
+                            <ul class="search_results" id="list_ustensiles"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer_content">FOOTER</div>
+            <div class="footer_copyright">Tous droits réservés &copy; Forth 2021</div>
+        </footer>
+    </body>
+</html>
