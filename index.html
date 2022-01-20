@@ -10,7 +10,7 @@
     </head>
     <body>
         <header class="header">
-            <h2 class="title">Les petits plats</h2>
+            <h1 class="title">Les petits plats</h1>
         </header>
 
         <div class="container">
@@ -23,7 +23,7 @@
                 <div class="tags_container"></div>
 
                 <div class="search_wrapper">
-                    <div class="search_content search_ingredients search_active">
+                    <div class="search_content search_ingredients">
                         <input type="text" class="search_input btn_search" placeholder="Ingredients"/>
 
                         <div class="list_container">
@@ -32,7 +32,6 @@
                                 <button class="btn_close">&#x2715</button>
                             </header>
                             <ul class="search_results" id="list_ingredients"></ul>
-                            <ul class="search_results" id="list_ingredients_filtered" style="display: none;"></ul>
                         </div>
                     </div>
 
@@ -61,11 +60,19 @@
                     </div>
                 </div>
             </section>
+
+            <section class="recipes_container"></section>
         </div>
 
         <footer class="footer">
             <div class="footer_content">FOOTER</div>
             <div class="footer_copyright">Tous droits réservés &copy; Forth 2021</div>
         </footer>
+
+        <div id="template_container" style="display: none;">
+            <article class="recipe_container">
+
+            </article>
+        </div>
     </body>
 </html>

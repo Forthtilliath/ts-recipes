@@ -6,7 +6,6 @@ type Recipe = {
         name: string;
         quantity?: number;
         unit?: string;
-        quantite?: number;
     }[];
     time: number;
     description: string;
@@ -14,6 +13,12 @@ type Recipe = {
     ustensils: string[];
 };
 
-type ListTags = {
+type List = {
     [key: string]: string[];
+};
+
+type RecipeItem = {
+    ingredients: string[];
+    appliance: string;
+    ustensils: string[];
 };

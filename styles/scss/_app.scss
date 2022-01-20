@@ -8,6 +8,14 @@ h2 {
     margin-bottom: 1rem;
 }
 
+.container {
+    padding: 2rem;
+}
+
+section + section {
+    margin-top: 2rem;
+}
+
 .tags_container {
     margin-top: 20px;
     display: flex;
@@ -42,11 +50,10 @@ h2 {
 .search_container {
     @include center;
     flex-direction: column;
-    margin: 2rem;
 
-    border-radius: 5px;
+    // border-radius: 5px;
     // Pour avoir les border-radius sur les enfants
-    overflow: hidden;
+    // overflow: hidden;
 
     // &, * {
     //     border-radius: 5px;
@@ -55,18 +62,15 @@ h2 {
     .search_input_wrapper {
         width: 100%;
         background-color: $white;
-        // border-radius: 5px;
         @include borderRadius(5px);
 
         .search_main_input {
             width: 100%;
             padding: 10px;
             font-size: 1rem;
-            // border-radius: 5px;
             border: none;
 
             &:focus {
-                // background-color: #fffc;
                 background-color: #ff05;
             }
         }
@@ -80,30 +84,30 @@ h2 {
         gap: 1rem;
 
         .search_content {
-            // flex: 1;
             @include center(center);
             transition: flex 0.3s ease-in-out;
             border-radius: 8px;
 
-            &.search_ingredients {
+            &.search_ingredients,
+            &.search_ingredients .search_results {
                 background-color: $c_ingredients;
             }
-            &.search_appliances {
+            &.search_appliances,
+            &.search_appliances .search_results {
                 background-color: $c_appliances;
             }
-            &.search_ustensils {
+            &.search_ustensils,
+            &.search_ustensils .search_results {
                 background-color: $c_ustensiles;
             }
 
-            // & * {
-            //     background-color: inherit;
-            // }
-
             &.search_active {
                 flex: 3;
+                border-radius: 8px 8px 0 0;
 
                 .btn_search {
                     display: none;
+                    border-radius: 8px;
                 }
                 .list_container {
                     display: flex;
@@ -127,7 +131,6 @@ h2 {
                 // background-repeat: no-repeat;
                 // background-position: right 15% bottom 50%;
                 font-family: 'DM Sans';
-                // margin: 0 20px;
                 padding-left: 20px;
 
                 &::-webkit-input-placeholder {
@@ -160,20 +163,63 @@ h2 {
                 }
 
                 .search_results {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
+                    @include gridColums(250px);
                     list-style: none;
-                    margin-top: 10px;
+                    padding: 10px;
+
+                    position: absolute;
+                    transform: translateY(40px);
+                    // 4rem = margin, 2rem = gap, 260px = inputs size
+                    width: calc((100% - 4rem - 2rem - 260px));
+                    border-radius: 0 0 8px 8px;
 
                     li {
                         padding: 5px 10px;
                         cursor: pointer;
+                        @include cutLine;
+
                         &:hover {
                             font-weight: bold;
+                            white-space: normal;
                         }
                     }
                 }
             }
+        }
+    }
+}
+
+.recipes_container {
+    @include gridColums(400px);
+    gap: 1rem;
+
+    .recipe_wrapper {
+        box-shadow: 0 0 2px $white;
+        padding: 1rem;
+        border-radius: 5px;
+
+        h2 {
+            @include cutLine;
+        }
+
+        .recipe_desc {
+            text-align: justify;
+        }
+
+        .recipe_content {
+            margin: 1rem 0;
+
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    }
+
+    .list_ingredients {
+        li {
+            margin-left: 1rem;
         }
     }
 }

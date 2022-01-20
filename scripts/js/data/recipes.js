@@ -20,7 +20,7 @@ const recipes = [
             },
             {
                 name: 'Sucre',
-                quantite: 30,
+                quantity: 30,
                 unit: 'grammes',
             },
             {
@@ -52,7 +52,7 @@ const recipes = [
             },
             {
                 name: 'Carotte',
-                quantite: 1,
+                quantity: 1,
             },
             {
                 name: 'Citron vert',

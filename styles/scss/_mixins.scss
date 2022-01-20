@@ -19,7 +19,21 @@
     top: $top;
 }
 
+// Border radius pour container afin que les enfants en profitent aussi
 @mixin borderRadius($size) {
     border-radius: #{$size};
     overflow: hidden;
+}
+
+// Coupe le texte pour éviter ton retour à la ligne
+@mixin cutLine() {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+// Affichage en colonnes avec une taille minimum
+@mixin gridColums($minWidth) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(#{$minWidth}, 1fr));
 }
