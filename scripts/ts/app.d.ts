@@ -1,3 +1,16 @@
+type ListElement = {
+    [key: string]: HTMLElement;
+};
+
+type ListElements = {
+    [key: string]: NodeListOf<HTMLElement>;
+};
+
+type ListInputs = {
+    main: HTMLElement;
+    componants: NodeListOf<HTMLElement>;
+};
+
 type Recipe = {
     id: number;
     name: string;
@@ -22,3 +35,7 @@ type RecipeItem = {
     appliance: string;
     ustensils: string[];
 };
+
+// class EventButton {
+//     public add(element:HTMLElement, type:string, func: Function);
+// }
