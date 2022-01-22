@@ -1,4 +1,3 @@
-// let buttonsSearch: NodeListOf<HTMLElement>;
 import { buttons } from "./index.js";
 
 /**

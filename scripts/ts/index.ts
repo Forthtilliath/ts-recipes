@@ -154,33 +154,6 @@ function updateListes() {
     const appSet = new Set<string>();
     const ustSet = new Set<string>();
 
-    // tags.forEach((tag) => {
-    //     const type = tag.parentElement!.classList[1];
-
-    //     recipesArr.forEach((recipe, i) => {
-    //         if (type === 'tag_ingredient') {
-    //             if (recipe.ingredients.includes(tag.innerText)) {
-    //                 // if (type === 'tag_ingredient' && recipe.ingredients.includes(tag.innerText)) {
-    //                 recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
-    //                 appSet.add(recipe.appliance);
-    //                 recipe.ustensils.forEach((ust) => ustSet.add(ust));
-    //             } else {
-    //                 listes.recipes[i].style.setProperty('display', 'none');
-    //             }
-    //         }
-
-    //         // if (type === 'tag_appliance') {
-    //         //     if (recipe.appliance === tag.innerText) {
-    //         //         recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
-    //         //         appSet.add(recipe.appliance);
-    //         //         recipe.ustensils.forEach((ust) => ustSet.add(ust));
-    //         //     } else {
-    //         //         listes.recipes[i].style.setProperty('display', 'none');
-    //         //     }
-    //         // }
-    //     });
-    // });
-
     // Génère un objet contenant tous les tags
     let tagsArr: List = {
         tag_ingredient: [],
@@ -189,7 +162,6 @@ function updateListes() {
     };
     tags.forEach((tag) => {
         const type = tag.parentElement!.classList[1];
-        // if (!tagsArr[type]) tagsArr[type] = new Array<string>();
         tagsArr[type].push(tag.innerText);
     });
     console.log('tagsArr', tagsArr);
