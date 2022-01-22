@@ -41,11 +41,19 @@ const listes = {
     recipes: document.querySelectorAll<HTMLDivElement>('.recipe_wrapper'),
 };
 
+/******************************************************************************
+ * CREATION DES EVENEMENTS
+ *****************************************************************************/
+
 // Ouvertures / Fermetures des boxes
 buttons.search.forEach((input) => input.addEventListener('focus', EventFunctions.handleOpen));
 buttons.close.forEach((close) => close.addEventListener('click', EventFunctions.handleClose));
 
 inputs.componants.forEach((input) => input.addEventListener('input', Utils.searchFilter));
+
+/******************************************************************************
+ * FONCTIONS LIEES AU DOM
+ *****************************************************************************/
 
 /**
  * Génère le DOM des boxes ingrédients, appareils et ustensiles
@@ -67,7 +75,6 @@ function generateDOM() {
             ingredients: recipe.ingredients.map((ing) => ing.name) as string[],
             appliance: recipe.appliance,
             ustensils: recipe.ustensils.map((ust) => ust),
-            // NOTE: Add recipeItem
         });
 
         // Ajoute la recette dans le DOM
@@ -84,6 +91,10 @@ function generateDOM() {
     appliancesArr.forEach((appliance) => Utils.createLi(containers.appliances, appliance, createTag));
     ustensilesArr.forEach((ustensile) => Utils.createLi(containers.ustensiles, ustensile, createTag));
 }
+
+/******************************************************************************
+ * FONCTIONS LIEES AUX TAGS
+ *****************************************************************************/
 
 /**
  * Génère un tag à partir de l'item cliqué.
@@ -127,6 +138,10 @@ function removeTag(e: Event) {
     updateListes();
 }
 
+/******************************************************************************
+ * FONCTIONS LIEES AUX FILTRES
+ *****************************************************************************/
+
 /**
  * Met à jour les listes à partir des tags
  */
@@ -139,20 +154,58 @@ function updateListes() {
     const appSet = new Set<string>();
     const ustSet = new Set<string>();
 
+    // tags.forEach((tag) => {
+    //     const type = tag.parentElement!.classList[1];
+
+    //     recipesArr.forEach((recipe, i) => {
+    //         if (type === 'tag_ingredient') {
+    //             if (recipe.ingredients.includes(tag.innerText)) {
+    //                 // if (type === 'tag_ingredient' && recipe.ingredients.includes(tag.innerText)) {
+    //                 recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
+    //                 appSet.add(recipe.appliance);
+    //                 recipe.ustensils.forEach((ust) => ustSet.add(ust));
+    //             } else {
+    //                 listes.recipes[i].style.setProperty('display', 'none');
+    //             }
+    //         }
+
+    //         // if (type === 'tag_appliance') {
+    //         //     if (recipe.appliance === tag.innerText) {
+    //         //         recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
+    //         //         appSet.add(recipe.appliance);
+    //         //         recipe.ustensils.forEach((ust) => ustSet.add(ust));
+    //         //     } else {
+    //         //         listes.recipes[i].style.setProperty('display', 'none');
+    //         //     }
+    //         // }
+    //     });
+    // });
+
+    // Génère un objet contenant tous les tags
+    let tagsArr: List = {
+        tag_ingredient: [],
+        tag_appliance: [],
+        tag_ustensile: []
+    };
     tags.forEach((tag) => {
         const type = tag.parentElement!.classList[1];
+        // if (!tagsArr[type]) tagsArr[type] = new Array<string>();
+        tagsArr[type].push(tag.innerText);
+    });
+    console.log('tagsArr', tagsArr);
 
-        if (type === 'tag_ingredient') {
-            recipesArr.forEach((recipe, i) => {
-                if (recipe.ingredients.includes(tag.innerText)) {
-                    // if (type === 'tag_ingredient' && recipe.ingredients.includes(tag.innerText)) {
-                    recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
-                    appSet.add(recipe.appliance);
-                    recipe.ustensils.forEach((ust) => ustSet.add(ust));
-                } else {
-                    listes.recipes[i].style.setProperty('display', 'none');
-                }
-            });
+    recipesArr.forEach((recipe, i) => {
+        // Si tous les tags sont inclus dans une recette, on affiche le tag        
+        if (
+            tagsArr.tag_ingredient?.every((tag) => recipe.ingredients.includes(tag))
+            && tagsArr.tag_appliance?.every((tag) => recipe.appliance.includes(tag))
+            && tagsArr.tag_ustensile?.every((tag) => recipe.ustensils.includes(tag))
+        ) {
+            recipe.ingredients.forEach((ing) => !tagsArr.tag_ingredient.includes(ing) && ingSet.add(ing));
+            if(!tagsArr.tag_appliance.includes(recipe.appliance)) appSet.add(recipe.appliance);
+            recipe.ustensils.forEach((ing) => !tagsArr.tag_ustensile.includes(ing) && ustSet.add(ing));
+        } else {
+            listes.recipes[i].style.setProperty('display', 'none');
         }
     });
 

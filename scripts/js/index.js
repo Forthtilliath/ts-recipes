@@ -79,19 +79,27 @@ function updateListes() {
     const ingSet = new Set();
     const appSet = new Set();
     const ustSet = new Set();
+    let tagsArr = {
+        tag_ingredient: [],
+        tag_appliance: [],
+        tag_ustensile: []
+    };
     tags.forEach((tag) => {
         const type = tag.parentElement.classList[1];
-        if (type === 'tag_ingredient') {
-            recipesArr.forEach((recipe, i) => {
-                if (recipe.ingredients.includes(tag.innerText)) {
-                    recipe.ingredients.forEach((ing) => ing !== tag.innerText && ingSet.add(ing));
-                    appSet.add(recipe.appliance);
-                    recipe.ustensils.forEach((ust) => ustSet.add(ust));
-                }
-                else {
-                    listes.recipes[i].style.setProperty('display', 'none');
-                }
-            });
+        tagsArr[type].push(tag.innerText);
+    });
+    console.log('tagsArr', tagsArr);
+    recipesArr.forEach((recipe, i) => {
+        if (tagsArr.tag_ingredient?.every((tag) => recipe.ingredients.includes(tag))
+            && tagsArr.tag_appliance?.every((tag) => recipe.appliance.includes(tag))
+            && tagsArr.tag_ustensile?.every((tag) => recipe.ustensils.includes(tag))) {
+            recipe.ingredients.forEach((ing) => !tagsArr.tag_ingredient.includes(ing) && ingSet.add(ing));
+            if (!tagsArr.tag_appliance.includes(recipe.appliance))
+                appSet.add(recipe.appliance);
+            recipe.ustensils.forEach((ing) => !tagsArr.tag_ustensile.includes(ing) && ustSet.add(ing));
+        }
+        else {
+            listes.recipes[i].style.setProperty('display', 'none');
         }
     });
     Utils.tagsFilter(listes.ingredients, [...ingSet]);
