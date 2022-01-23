@@ -7,18 +7,21 @@ import * as EventFunctions from './EventFunctions.js';
  *****************************************************************************/
 
 /** Liste des containers */
-const containers: ListElement = {
+export const containers: ListElement = {
     ingredients: document.querySelector('#list_ingredients')!,
     appliances: document.querySelector('#list_appliances')!,
     ustensiles: document.querySelector('#list_ustensiles')!,
 
     tags: document.querySelector('.tags_container')!,
     recipes: document.querySelector('.recipes_container')!,
+    mainInput: document.querySelector('.search_input_wrapper')!,
+    mainResults: document.querySelector('.search_main_results')!
 };
 
 /** Liste des boutons */
 // Export afin de pouvoir y accéder via les events des boutons
 export const buttons: ListElements = {
+    mainSearch: document.querySelectorAll('#btnSearch')!,
     search: document.querySelectorAll('.btn_search'),
     close: document.querySelectorAll('.btn_close'),
 };
@@ -34,7 +37,7 @@ let recipesArr = new Array<RecipeItem>();
 generateDOM();
 
 /** Liste des composants */
-const listes = {
+export const listes = {
     ingredients: containers.ingredients.querySelectorAll('li'),
     appliances: containers.appliances.querySelectorAll('li'),
     ustensiles: containers.ustensiles.querySelectorAll('li'),
@@ -48,8 +51,11 @@ const listes = {
 // Ouvertures / Fermetures des boxes
 buttons.search.forEach((input) => input.addEventListener('focus', EventFunctions.handleOpen));
 buttons.close.forEach((close) => close.addEventListener('click', EventFunctions.handleClose));
+inputs.main.addEventListener('focus', EventFunctions.handleClose);
 
-inputs.componants.forEach((input) => input.addEventListener('input', Utils.searchFilter));
+buttons.mainSearch[0].addEventListener('click', Utils.searchFilter);
+inputs.main.addEventListener('input', Utils.searchFilter);
+inputs.componants.forEach((input) => input.addEventListener('input', Utils.searchFilterTag));
 
 /******************************************************************************
  * FONCTIONS LIEES AU DOM
@@ -87,55 +93,9 @@ function generateDOM() {
     const ustensilesArr = [...ustensilesSet].sort(Utils.sortAlphabetically);
 
     // Génère les li des listes avec un évenement au click
-    ingredientsArr.forEach((ingredient) => Utils.createLi(containers.ingredients, ingredient, createTag));
-    appliancesArr.forEach((appliance) => Utils.createLi(containers.appliances, appliance, createTag));
-    ustensilesArr.forEach((ustensile) => Utils.createLi(containers.ustensiles, ustensile, createTag));
-}
-
-/******************************************************************************
- * FONCTIONS LIEES AUX TAGS
- *****************************************************************************/
-
-/**
- * Génère un tag à partir de l'item cliqué.
- * @param e Item de la liste d'une boxe
- */
-function createTag(e: Event) {
-    const el = e?.target as HTMLElement;
-    const tag = document.createElement('div');
-    const customClass = 'tag_' + el.parentElement?.getAttribute('id')?.slice(5, -1);
-
-    // Label
-    tag.innerHTML = `<span class="tagLabel">${el.innerText}</span>`;
-    tag.classList.add('tag', customClass);
-    tag.appendChild(createBtnDeleteTag());
-
-    containers.tags.appendChild(tag);
-
-    EventFunctions.handleClose();
-    updateListes();
-}
-
-/**
- * Génère un bouton pour supprimer un tag
- */
-function createBtnDeleteTag() {
-    const btn = document.createElement('button');
-    btn.innerHTML = '&#x2715';
-    btn.addEventListener('click', removeTag);
-    return btn;
-}
-
-/**
- * Supprime le tag
- * @param e Tag
- */
-function removeTag(e: Event) {
-    const el = e?.target as HTMLElement;
-    el.parentElement?.remove();
-
-    cancelFilters();
-    updateListes();
+    ingredientsArr.forEach((ingredient) => Utils.createLi(containers.ingredients, ingredient, Utils.createTag));
+    appliancesArr.forEach((appliance) => Utils.createLi(containers.appliances, appliance, Utils.createTag));
+    ustensilesArr.forEach((ustensile) => Utils.createLi(containers.ustensiles, ustensile, Utils.createTag));
 }
 
 /******************************************************************************
@@ -145,14 +105,10 @@ function removeTag(e: Event) {
 /**
  * Met à jour les listes à partir des tags
  */
-function updateListes() {
+export function updateListes() {
     const tags = document.querySelectorAll<HTMLElement>('.tagLabel');
 
     if (!tags.length) return;
-
-    const ingSet = new Set<string>();
-    const appSet = new Set<string>();
-    const ustSet = new Set<string>();
 
     // Génère un objet contenant tous les tags
     let tagsArr: List = {
@@ -165,6 +121,13 @@ function updateListes() {
         tagsArr[type].push(tag.innerText);
     });
     console.log('tagsArr', tagsArr);
+
+    const ingSet = new Set<string>();
+    const appSet = new Set<string>();
+    const ustSet = new Set<string>();
+
+    console.log(recipesArr);
+    
 
     recipesArr.forEach((recipe, i) => {
         // Si tous les tags sont inclus dans une recette, on affiche le tag        
@@ -184,14 +147,4 @@ function updateListes() {
     Utils.tagsFilter(listes.ingredients, [...ingSet]);
     Utils.tagsFilter(listes.appliances, [...appSet]);
     Utils.tagsFilter(listes.ustensiles, [...ustSet]);
-}
-
-/**
- * Annule tous les filtres appliqués
- */
-function cancelFilters() {
-    listes.recipes.forEach((rec) => rec.style.removeProperty('display'));
-    listes.ingredients.forEach((ing) => ing.style.removeProperty('display'));
-    listes.appliances.forEach((app) => app.style.removeProperty('display'));
-    listes.ustensiles.forEach((ust) => ust.style.removeProperty('display'));
 }

@@ -73,7 +73,13 @@ a, a:visited {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   box-shadow: 0px 1px 8px #f2f2f2;
+  color: #d04f4f;
+  height: 150px;
+}
+.header .title {
+  font-size: 3rem;
 }
 
 h2 {
@@ -127,16 +133,59 @@ section + section {
   width: 100%;
   background-color: #f2f2f2;
   border-radius: 5px;
-  overflow: hidden;
+  position: relative;
 }
 .search_container .search_input_wrapper .search_main_input {
   width: 100%;
-  padding: 10px;
+  height: 40px;
+  padding: 10px 45px 10px 10px;
   font-size: 1rem;
   border: none;
+  border-radius: 5px;
 }
 .search_container .search_input_wrapper .search_main_input:focus {
   background-color: #ff05;
+}
+.search_container .search_input_wrapper button {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  border: 0;
+  height: 40px;
+  box-shadow: 0 0 2px black;
+  border-radius: 0 5px 5px 0;
+  z-index: 1;
+}
+.search_container .search_input_wrapper button svg {
+  width: 70%;
+}
+.search_container .search_input_wrapper .search_main_results {
+  list-style: none;
+  color: #1d1e22;
+  display: none;
+  position: absolute;
+  width: 100%;
+  background: #f2f2f2;
+  border-radius: 0 0 5px 5px;
+}
+.search_container .search_input_wrapper .search_main_results li {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.search_container .search_input_wrapper .search_main_results li:hover {
+  background-color: #0003;
+}
+.search_container .search_input_wrapper.active {
+  border-radius: 5px 5px 0 0;
+}
+.search_container .search_input_wrapper.active .search_main_input {
+  border-radius: 5px 5px 0 0;
+}
+.search_container .search_input_wrapper.active button {
+  border-radius: 0 5px 0 0;
+}
+.search_container .search_input_wrapper.active .search_main_results {
+  display: block;
 }
 .search_container .search_wrapper {
   display: flex;
@@ -258,6 +307,18 @@ section + section {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 2px #f2f2f2 solid;
+  padding: 5px 0;
+  border-radius: 5px;
+}
+.recipes_container .recipe_wrapper .recipe_content header div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.recipes_container .recipe_wrapper .recipe_content header div svg {
+  width: 20px;
+  height: 20px;
 }
 .recipes_container .list_ingredients li {
   margin-left: 1rem;

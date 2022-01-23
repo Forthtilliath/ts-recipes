@@ -35,7 +35,3 @@ type RecipeItem = {
     appliance: string;
     ustensils: string[];
 };
-
-// class EventButton {
-//     public add(element:HTMLElement, type:string, func: Function);
-// }
