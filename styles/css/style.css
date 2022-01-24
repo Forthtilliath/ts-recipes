@@ -171,6 +171,7 @@ section + section {
 .search_container .search_input_wrapper .search_main_results li {
   padding: 5px 10px;
   cursor: pointer;
+  text-transform: capitalize;
 }
 .search_container .search_input_wrapper .search_main_results li:hover {
   background-color: #0003;
@@ -276,6 +277,7 @@ section + section {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-transform: capitalize;
 }
 .search_container .search_wrapper .search_content .list_container .search_results li:hover {
   font-weight: bold;

@@ -113,6 +113,7 @@ section + section {
             li {
                 padding: 5px 10px;
                 cursor: pointer;
+                text-transform: capitalize;
 
                 &:hover {
                     background-color: #0003;
@@ -238,6 +239,7 @@ section + section {
                         padding: 5px 10px;
                         cursor: pointer;
                         @include cutLine;
+                        text-transform: capitalize;
 
                         &:hover {
                             font-weight: bold;
